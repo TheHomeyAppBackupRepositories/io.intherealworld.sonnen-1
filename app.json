@@ -1,1 +1,440 @@
-{"_comment":"This file is generated. Please edit .homeycompose/app.json instead.","id":"io.intherealworld.sonnen","version":"1.0.8","compatibility":">=5.0.0","brandColor":"#999999","sdk":3,"platforms":["local"],"name":{"en":"Sonnen"},"description":{"en":"Intelligent home energy storage"},"category":["energy"],"permissions":[],"images":{"small":"/assets/images/small.jpg","large":"/assets/images/large.jpg","xlarge":"/assets/images/xlarge.jpg"},"author":{"name":"Tim Bogaert"},"contributing":{"donate":{"paypal":{"username":"timbogaert"}}},"flow":{"triggers":[{"id":"measure_power.grid_in_changed","title":{"en":"To Grid changed"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]},{"id":"measure_power.grid_out_changed","title":{"en":"From Grid changed"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]},{"id":"measure_power.batt_out_changed","title":{"en":"To Battery changed"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]},{"id":"measure_power.batt_in_changed","title":{"en":"From Battery changed"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]},{"id":"sonnen_light_changed","title":{"en":"LED Light changed"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]},{"id":"sonnen_state.bms_changed","title":{"en":"BMS State changed"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]},{"id":"sonnen_state.core_changed","title":{"en":"Control Module State changed"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]},{"id":"sonnen_state.inv_changed","title":{"en":"Inverter State changed"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]},{"id":"sonnen_weather_true","title":{"en":"Weather Forecast Charging activated"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]},{"id":"sonnen_weather_false","title":{"en":"Weather Forecast Charging deactivated"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]}],"conditions":[{"id":"to-grid-watt","title":{"en":"To grid !{{>|<}}"},"titleFormatted":{"en":"To grid !{{>|<}} [[Wattage]] W"},"hint":{"en":"When To Grid is above this wattage"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"},{"type":"number","name":"Wattage","placeholder":{"en":"1000"},"min":1,"max":20000,"step":10}]},{"id":"weather-forecast-is-on","title":{"en":"Weather Forecast is !{{on|off}}"},"hint":{"en":"When the Weather Forecast Charging feature is active or not"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]}],"actions":[{"id":"turn-on-weather-forecast","title":{"en":"Turn on Weather Forecast"},"hint":{"en":"Turns on the Weather Forecast Charging Feature"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]},{"id":"turn-off-weather-forecast","title":{"en":"Turn off Weather Forecast"},"hint":{"en":"Turns off the Weather Forecast Charging Feature"},"args":[{"type":"device","name":"device","filter":"driver_id=sonnen-battery"}]}]},"drivers":[{"name":{"en":"Sonnen Battery"},"class":"other","capabilities":["measure_battery","measure_power.consumption","measure_power.production","measure_power.grid_in","measure_power.grid_out","measure_power.batt_in","measure_power.batt_out","sonnen_light","sonnen_state.bms","sonnen_state.core","sonnen_state.inv","sonnen_weather"],"capabilitiesOptions":{"sonnen_state.bms":{"title":{"en":"BMS"}},"sonnen_state.core":{"title":{"en":"Control Module"}},"sonnen_state.inv":{"title":{"en":"Inverter"}},"measure_power.consumption":{"title":{"en":"Consumption"}},"measure_power.production":{"title":{"en":"Production"}},"measure_power.grid_in":{"title":{"en":"To Grid"}},"measure_power.grid_out":{"title":{"en":"From Grid"}},"measure_power.batt_in":{"title":{"en":"From Battery"}},"measure_power.batt_out":{"title":{"en":"To Battery"}},"measure_power.pac_total":{"title":{"en":"Battery"}}},"platforms":["local"],"connectivity":["lan"],"images":{"small":"/drivers/sonnen-battery/assets/images/small.jpg","large":"/drivers/sonnen-battery/assets/images/large.jpg","xlarge":"/drivers/sonnen-battery/assets/images/xlarge.jpg"},"energy":{"batteries":["INTERNAL"]},"pair":[{"id":"list_devices","template":"list_devices","navigation":{"next":"add_devices"}},{"id":"add_devices","template":"add_devices"}],"id":"sonnen-battery","settings":[{"id":"apikey","type":"text","label":{"en":"API Key"},"value":"","hint":{"en":"The API Key of the user"}}]}],"capabilities":{"sonnen_light":{"type":"enum","title":{"en":"Light"},"getable":true,"setable":false,"uiComponent":"sensor","icon":"/assets/sonnen-logo.svg","values":[{"id":"Pulsing Green","title":{"en":"Pulsing Green"}},{"id":"Blinking Red","title":{"en":"Blinking Red"}},{"id":"Pulsing Orange","title":{"en":"Pulsing Orange"}},{"id":"Pulsing White","title":{"en":"Pulsing White"}},{"id":"Solid Red","title":{"en":"Solid Red"}}]},"sonnen_state":{"type":"string","title":{"en":"State"},"getable":true,"setable":false,"uiComponent":"sensor","icon":"/assets/sonnen-logo.svg"},"sonnen_weather":{"type":"boolean","title":{"en":"Weather Forecast Charging"},"getable":true,"setable":true,"insights":true,"icon":"/assets/weather.svg","insightsTitleTrue":{"en":"Weather Forecast Charging on"},"insightsTitleFalse":{"en":"Weather Forecast Charging off"},"uiComponent":"toggle","uiQuickAction":true}}}
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "io.intherealworld.sonnen",
+  "version": "1.0.8",
+  "compatibility": ">=5.0.0",
+  "brandColor": "#999999",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Sonnen"
+  },
+  "description": {
+    "en": "Intelligent home energy storage"
+  },
+  "category": [
+    "energy"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.jpg",
+    "large": "/assets/images/large.jpg",
+    "xlarge": "/assets/images/xlarge.jpg"
+  },
+  "author": {
+    "name": "Tim Bogaert"
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "timbogaert"
+      }
+    }
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "measure_power.grid_in_changed",
+        "title": {
+          "en": "To Grid changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      },
+      {
+        "id": "measure_power.grid_out_changed",
+        "title": {
+          "en": "From Grid changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      },
+      {
+        "id": "measure_power.batt_out_changed",
+        "title": {
+          "en": "To Battery changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      },
+      {
+        "id": "measure_power.batt_in_changed",
+        "title": {
+          "en": "From Battery changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      },
+      {
+        "id": "sonnen_light_changed",
+        "title": {
+          "en": "LED Light changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      },
+      {
+        "id": "sonnen_state.bms_changed",
+        "title": {
+          "en": "BMS State changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      },
+      {
+        "id": "sonnen_state.core_changed",
+        "title": {
+          "en": "Control Module State changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      },
+      {
+        "id": "sonnen_state.inv_changed",
+        "title": {
+          "en": "Inverter State changed"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      },
+      {
+        "id": "sonnen_weather_true",
+        "title": {
+          "en": "Weather Forecast Charging activated"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      },
+      {
+        "id": "sonnen_weather_false",
+        "title": {
+          "en": "Weather Forecast Charging deactivated"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "to-grid-watt",
+        "title": {
+          "en": "To grid !{{>|<}}"
+        },
+        "titleFormatted": {
+          "en": "To grid !{{>|<}} [[Wattage]] W"
+        },
+        "hint": {
+          "en": "When To Grid is above this wattage"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          },
+          {
+            "type": "number",
+            "name": "Wattage",
+            "placeholder": {
+              "en": "1000"
+            },
+            "min": 1,
+            "max": 20000,
+            "step": 10
+          }
+        ]
+      },
+      {
+        "id": "weather-forecast-is-on",
+        "title": {
+          "en": "Weather Forecast is !{{on|off}}"
+        },
+        "hint": {
+          "en": "When the Weather Forecast Charging feature is active or not"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "turn-on-weather-forecast",
+        "title": {
+          "en": "Turn on Weather Forecast"
+        },
+        "hint": {
+          "en": "Turns on the Weather Forecast Charging Feature"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      },
+      {
+        "id": "turn-off-weather-forecast",
+        "title": {
+          "en": "Turn off Weather Forecast"
+        },
+        "hint": {
+          "en": "Turns off the Weather Forecast Charging Feature"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=sonnen-battery"
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Sonnen Battery"
+      },
+      "class": "other",
+      "capabilities": [
+        "measure_battery",
+        "measure_power.consumption",
+        "measure_power.production",
+        "measure_power.grid_in",
+        "measure_power.grid_out",
+        "measure_power.batt_in",
+        "measure_power.batt_out",
+        "sonnen_light",
+        "sonnen_state.bms",
+        "sonnen_state.core",
+        "sonnen_state.inv",
+        "sonnen_weather"
+      ],
+      "capabilitiesOptions": {
+        "sonnen_state.bms": {
+          "title": {
+            "en": "BMS"
+          }
+        },
+        "sonnen_state.core": {
+          "title": {
+            "en": "Control Module"
+          }
+        },
+        "sonnen_state.inv": {
+          "title": {
+            "en": "Inverter"
+          }
+        },
+        "measure_power.consumption": {
+          "title": {
+            "en": "Consumption"
+          }
+        },
+        "measure_power.production": {
+          "title": {
+            "en": "Production"
+          }
+        },
+        "measure_power.grid_in": {
+          "title": {
+            "en": "To Grid"
+          }
+        },
+        "measure_power.grid_out": {
+          "title": {
+            "en": "From Grid"
+          }
+        },
+        "measure_power.batt_in": {
+          "title": {
+            "en": "From Battery"
+          }
+        },
+        "measure_power.batt_out": {
+          "title": {
+            "en": "To Battery"
+          }
+        },
+        "measure_power.pac_total": {
+          "title": {
+            "en": "Battery"
+          }
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/sonnen-battery/assets/images/small.jpg",
+        "large": "/drivers/sonnen-battery/assets/images/large.jpg",
+        "xlarge": "/drivers/sonnen-battery/assets/images/xlarge.jpg"
+      },
+      "energy": {
+        "batteries": [
+          "INTERNAL"
+        ]
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "sonnen-battery",
+      "settings": [
+        {
+          "id": "apikey",
+          "type": "text",
+          "label": {
+            "en": "API Key"
+          },
+          "value": "",
+          "hint": {
+            "en": "The API Key of the user"
+          }
+        }
+      ]
+    }
+  ],
+  "capabilities": {
+    "sonnen_light": {
+      "type": "enum",
+      "title": {
+        "en": "Light"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/sonnen-logo.svg",
+      "values": [
+        {
+          "id": "Pulsing Green",
+          "title": {
+            "en": "Pulsing Green"
+          }
+        },
+        {
+          "id": "Blinking Red",
+          "title": {
+            "en": "Blinking Red"
+          }
+        },
+        {
+          "id": "Pulsing Orange",
+          "title": {
+            "en": "Pulsing Orange"
+          }
+        },
+        {
+          "id": "Pulsing White",
+          "title": {
+            "en": "Pulsing White"
+          }
+        },
+        {
+          "id": "Solid Red",
+          "title": {
+            "en": "Solid Red"
+          }
+        }
+      ]
+    },
+    "sonnen_state": {
+      "type": "string",
+      "title": {
+        "en": "State"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/sonnen-logo.svg"
+    },
+    "sonnen_weather": {
+      "type": "boolean",
+      "title": {
+        "en": "Weather Forecast Charging"
+      },
+      "getable": true,
+      "setable": true,
+      "insights": true,
+      "icon": "/assets/weather.svg",
+      "insightsTitleTrue": {
+        "en": "Weather Forecast Charging on"
+      },
+      "insightsTitleFalse": {
+        "en": "Weather Forecast Charging off"
+      },
+      "uiComponent": "toggle",
+      "uiQuickAction": true
+    }
+  }
+}
